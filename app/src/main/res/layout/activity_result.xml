@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.8"
+            android:background="#4876FF"
+            android:orientation="vertical"
+            android:gravity="center">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:text="@string/order_detail"/>
+    </LinearLayout>
+
+
+    <!--商品总价和总数-->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/account_paid"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_red_light"
+                    android:text="12元"
+                    android:textSize="18sp"
+                    android:layout_marginRight="8dp"
+                    android:id="@+id/money_paid"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/goods_num"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="18sp"
+                    android:text="3件"
+                    android:id="@+id/goods_count"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="5dp"
+          android:background="#EDEDED"></View>
+
+
+    <!--门店，订单号，订单时间信息-->
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="1"
+                  android:paddingLeft="15dp"
+                  android:orientation="vertical">
+        <!--门店信息-->
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:layout_weight="1"
+                      android:layout_marginTop="2dp"
+                      android:orientation="horizontal">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/store_title"
+                      android:text="@string/store_title"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/store"
+                      android:text="张江店"/>
+        </LinearLayout>
+
+        <!--订单号信息-->
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:layout_weight="1"
+                      android:layout_marginTop="2dp"
+                      android:orientation="horizontal">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/order_num_title"
+                      android:text="@string/order_number_title"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/order_num"
+                      android:text="1234567890"/>
+        </LinearLayout>
+
+        <!--付款时间信息-->
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="0dp"
+                      android:layout_weight="1"
+                      android:layout_marginTop="2dp"
+                      android:orientation="horizontal">
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/order_time_title"
+                      android:text="@string/order_time_title"/>
+
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/order_time"
+                      android:text="2018/9/28"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="5dp"
+          android:background="#EDEDED"></View>
+
+
+   <!-- <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/scan_result"
+            android:text="@string/app_name"
+            android:layout_marginBottom="10dp"/>-->
+
+    <!--商品详情的listview-->
+    <ListView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:scrollbars="none"
+            android:fadeScrollbars="false"
+            android:id="@+id/result_litView">
+    </ListView>
+
+    <!--确认订单按钮-->
+        <Button android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_confirm"
+                android:background="@android:color/holo_orange_light"
+                android:textColor="@android:color/white"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/confirm_order"/>
+
+</LinearLayout>

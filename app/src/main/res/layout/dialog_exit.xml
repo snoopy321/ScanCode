@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/dialog_exit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/holo_green_light"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+    <RelativeLayout
+            android:id="@+id/titlelayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true">
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/success_buy"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"/>
+
+        <TextView
+                 android:id="@+id/tv_timer"
+                 android:gravity="center"
+                 android:background="@drawable/oval"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="3s"
+                 android:textColor="@android:color/white"
+                 android:layout_alignParentRight="true"
+                 android:layout_margin="20dp"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+            android:id="@+id/service_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/titlelayout"
+            android:layout_below="@+id/titlelayout"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/welcome_again"
+                android:textColor="@android:color/white"
+                android:textSize="25sp" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/service_detail"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+        <Button
+                android:id="@+id/btn_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/exit"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:background="@drawable/shape_button"/>
+
+    </LinearLayout>
+
+</RelativeLayout>
