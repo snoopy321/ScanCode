@@ -15,6 +15,7 @@ import com.snoopy.scancode.dialog.ExitDialog;
 import com.snoopy.scancode.dialog.ServiceDialog;
 import com.snoopy.scancode.entity.GoodItem;
 import com.snoopy.scancode.util.Constant;
+import com.snoopy.scancode.util.ScreenUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +33,22 @@ public class ResultActivity extends AppCompatActivity {
     //商品List
     private List<GoodItem> goodList = new ArrayList<GoodItem>();
 
+    private static ResultActivity mInstance;
+    /*
+    获取静态实例
+     */
+    public static ResultActivity getInstance() {
+        if (mInstance == null) {
+            if (mInstance == null) {
+                mInstance = new ResultActivity();
+            }
+        }
+        return mInstance;
+    }
+
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ScreenUtil.resetDensity(ResultActivity.this);
         setContentView(R.layout.activity_result);
         initViews();
         getSupportActionBar().hide();

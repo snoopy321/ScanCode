@@ -17,6 +17,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
+                android:textSize="@dimen/x40"
                 android:text="@string/order_detail"/>
     </LinearLayout>
 
@@ -36,7 +37,9 @@
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="@dimen/x5"
+                    android:textSize="@dimen/x30"
+                    android:textColor="@android:color/black"
                     android:text="@string/account_paid"/>
 
             <TextView
@@ -44,52 +47,55 @@
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/holo_red_light"
                     android:text="12元"
-                    android:textSize="18sp"
-                    android:layout_marginRight="8dp"
+                    android:textSize="@dimen/x40"
+                    android:layout_marginRight="@dimen/x30"
                     android:id="@+id/money_paid"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="@dimen/x5"
+                    android:textSize="@dimen/x30"
+                    android:textColor="@android:color/black"
                     android:text="@string/goods_num"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/holo_red_light"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/x40"
                     android:text="3件"
                     android:id="@+id/goods_count"/>
         </LinearLayout>
     </LinearLayout>
 
     <View android:layout_width="match_parent"
-          android:layout_height="5dp"
+          android:layout_height="@dimen/x5"
           android:background="#EDEDED"></View>
-
 
     <!--门店，订单号，订单时间信息-->
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="0dp"
                   android:layout_weight="1"
-                  android:paddingLeft="15dp"
+                  android:layout_marginLeft="@dimen/x40"
                   android:orientation="vertical">
         <!--门店信息-->
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="0dp"
                       android:layout_weight="1"
-                      android:layout_marginTop="2dp"
+                      android:layout_marginTop="@dimen/y2"
                       android:orientation="horizontal">
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/store_title"
+                      android:textSize="@dimen/x30"
                       android:text="@string/store_title"/>
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/store"
+                      android:textSize="@dimen/x30"
                       android:text="张江店"/>
         </LinearLayout>
 
@@ -97,17 +103,19 @@
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="0dp"
                       android:layout_weight="1"
-                      android:layout_marginTop="2dp"
+                      android:layout_marginTop="@dimen/y2"
                       android:orientation="horizontal">
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/order_num_title"
+                      android:textSize="@dimen/x30"
                       android:text="@string/order_number_title"/>
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/order_num"
+                      android:textSize="@dimen/x30"
                       android:text="1234567890"/>
         </LinearLayout>
 
@@ -115,55 +123,63 @@
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="0dp"
                       android:layout_weight="1"
-                      android:layout_marginTop="2dp"
+                      android:layout_marginTop="@dimen/y2"
                       android:orientation="horizontal">
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/order_time_title"
+                      android:textSize="@dimen/x30"
                       android:text="@string/order_time_title"/>
 
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:id="@+id/order_time"
+                      android:textSize="@dimen/x30"
                       android:text="2018/9/28"/>
         </LinearLayout>
     </LinearLayout>
 
     <View android:layout_width="match_parent"
-          android:layout_height="5dp"
+          android:layout_height="@dimen/y5"
           android:background="#EDEDED"></View>
 
 
-   <!-- <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/scan_result"
-            android:text="@string/app_name"
-            android:layout_marginBottom="10dp"/>-->
-
+    <!-- <TextView
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:id="@+id/scan_result"
+             android:text="@string/app_name"
+             android:layout_marginBottom="10dp"/>-->
     <!--商品详情的listview-->
     <ListView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
+            android:layout_weight="4"
+            android:layout_marginLeft="@dimen/x40"
+            android:layout_marginRight="@dimen/x40"
             android:scrollbars="none"
             android:fadeScrollbars="false"
             android:id="@+id/result_litView">
     </ListView>
 
-    <!--确认订单按钮-->
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="1"
+                  android:gravity="center"
+                  android:weightSum="2"
+                  android:orientation="horizontal">
+        <!--确认订单按钮-->
         <Button android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_confirm"
-                android:background="@android:color/holo_orange_light"
+                android:layout_marginLeft="@dimen/x40"
+                android:layout_marginRight="@dimen/x40"
+                android:background="@drawable/shape_button_confirm"
                 android:textColor="@android:color/white"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
+                android:textSize="@dimen/x30"
                 android:text="@string/confirm_order"/>
+    </LinearLayout>
+
 
 </LinearLayout>

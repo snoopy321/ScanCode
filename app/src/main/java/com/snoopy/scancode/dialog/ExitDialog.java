@@ -15,8 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.snoopy.scancode.MainActivity;
 import com.snoopy.scancode.R;
-
-
+import com.snoopy.scancode.result.ResultActivity;
 import java.util.List;
 
 
@@ -24,7 +23,6 @@ import java.util.List;
 进入详情页面时，显示将有服务员为您服务的弹框dialog
  */
 public class ExitDialog extends Dialog {
-
 
     public Context context;
     TextView tv_timer;
@@ -72,6 +70,7 @@ public class ExitDialog extends Dialog {
         //判断ResultActivity是否位于前台，防止重复返回MainActivity
         if(isForeground(context, "com.snoopy.scancode.result.ResultActivity")){
             context.startActivity(intent);
+            ResultActivity.getInstance().finish();
         }
     }
 

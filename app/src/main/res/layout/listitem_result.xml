@@ -1,50 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
+        android:paddingTop="@dimen/y30"
+        android:paddingBottom="@dimen/y30"
         android:orientation="horizontal">
 
-    <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
             android:orientation="vertical">
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
+                android:textSize="@dimen/x40"
+                android:text="aaa"
+                android:textColor="@android:color/black"
+                android:layout_alignParentTop="true"
                 android:id="@+id/good_name"/>
 
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/x30"
+                android:layout_gravity="bottom"
+                android:text="bbb"
+                android:layout_marginTop="@dimen/y70"
+                android:layout_alignParentBottom="true"
                 android:id="@+id/good_detail"/>
-    </LinearLayout>
+    </RelativeLayout>
 
-    <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="right">
+            android:layout_alignParentRight="true">
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
                 android:orientation="horizontal">
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="￥"
-                      android:textColor="@android:color/holo_red_light"
-                      android:layout_marginRight="3dp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textSize="@dimen/x40"
+                    android:textColor="@android:color/holo_red_light"
+                    android:layout_marginRight="@dimen/x3"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/x40"
+                    android:textColor="@android:color/holo_red_light"
                     android:id="@+id/good_money"/>
         </LinearLayout>
 
@@ -52,20 +64,26 @@
         <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/y70"
                 android:orientation="horizontal">
-
-            <TextView android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="X"
-                      android:layout_marginRight="3dp"/>
 
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="X"
+                    android:textSize="@dimen/x30"
+                    android:layout_marginRight="@dimen/x3"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/x30"
                     android:id="@+id/good_count"/>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>
