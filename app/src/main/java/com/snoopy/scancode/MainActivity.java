@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.snoopy.scancode.helper.ScanGunHelper;
 import com.snoopy.scancode.result.ResultActivity;
 import com.snoopy.scancode.util.Constant;
-import com.snoopy.scancode.R;
 
 public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnScanSuccessListener{
 
@@ -29,11 +28,17 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
         initViewsAndParas();
     }
 
-
     //初始化组件以及参数
     void initViewsAndParas(){
         homeAppPage = findViewById(R.id.app_home_page);
         homeAppPage.bringToFront();
+        homeAppPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent resultIntent = new Intent(MainActivity.this, ResultActivity.class);
+                startActivity(resultIntent);
+            }
+        });
         getSupportActionBar().hide();
 
         //设置沉浸式状态栏，，注意需要在android5.0版本及以上
@@ -44,13 +49,13 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
     }
+
     //其实这类事件都是普通的按键事件通过dispatchKeyEvent就可以拦截
     //------------------------------获取磁条卡信息-------------------------------
-
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (!event.getDevice().getName().equals("Virtual")) {
-            //activity实现了扫码成功的回调这里的this就是这个listener（不懂得就百度下吧）
+            //activity实现了扫码成功的回调这里的this就是这个listener
             //采用单例模式调用
             ScanGunHelper.getInstance().analysisKeyEvent(event, this);
             return true;

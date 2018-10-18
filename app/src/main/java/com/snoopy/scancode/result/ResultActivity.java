@@ -51,24 +51,14 @@ public class ResultActivity extends AppCompatActivity {
         ScreenUtil.resetDensity(ResultActivity.this);
         setContentView(R.layout.activity_result);
         initViews();
-        getSupportActionBar().hide();
         initGoodDatas();
-
-        //设置商品适配器
-        GoodAdapter goodAdapter = new GoodAdapter(ResultActivity.this, R.layout.listitem_result,goodList);
-        resultList.setAdapter(goodAdapter);
-
         //在展示详情页面的同时，展示出等待员工服务的dialog
-        showServiceDialog();
-        Intent intent = getIntent();
-        String result = intent.getStringExtra(Constant.INTENT_EXTRA_KEY_QR_SCAN);
-        //scanResult.setText(result);
-        Toast.makeText(ResultActivity.this,result,Toast.LENGTH_LONG).show();
     }
 
     //初始化控件
     private void initViews() {
         //scanResult = findViewById(R.id.scan_result);
+        getSupportActionBar().hide();
         resultList = findViewById(R.id.result_litView);
         btn_confirm = findViewById(R.id.btn_confirm);
         //点击确认订单按钮，显示退出详情界面dialog
@@ -78,10 +68,23 @@ public class ResultActivity extends AppCompatActivity {
                 showExitDialog();
             }
         });
+
+        //设置商品适配器
+        GoodAdapter goodAdapter = new GoodAdapter(ResultActivity.this, R.layout.listitem_result,goodList);
+        resultList.setAdapter(goodAdapter);
     }
 
     //初始化订单数据（测试数据，等待后台接口写入）
     private void initGoodDatas(){
+        //展示服务dialog
+        showServiceDialog();
+
+        //获取并展示二维码的数据
+        Intent intent = getIntent();
+        String result = intent.getStringExtra(Constant.INTENT_EXTRA_KEY_QR_SCAN);
+        //scanResult.setText(result);
+        Toast.makeText(ResultActivity.this,result,Toast.LENGTH_LONG).show();
+
         GoodItem goodItem = new GoodItem("999","10g/袋","1","2.5");
         for(int i=0;i<10;i++){
             goodList.add(goodItem);

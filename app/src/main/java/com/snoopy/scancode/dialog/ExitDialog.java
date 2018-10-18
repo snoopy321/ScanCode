@@ -11,7 +11,9 @@ import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 import com.snoopy.scancode.MainActivity;
 import com.snoopy.scancode.R;
@@ -45,7 +47,13 @@ public class ExitDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View view = View.inflate(context, R.layout.dialog_exit,null);
-        setContentView(view);
+        Window window = getWindow();
+        window.getAttributes().gravity = Gravity.CENTER;
+        //设置透明背景
+        window.setBackgroundDrawableResource(android.R.color.transparent);
+        int letfPadding = (int) context.getResources().getDimension(R.dimen.x100);
+        window.getDecorView().setPadding(letfPadding,0,letfPadding,0);
+        window.setContentView(view);
         tv_timer = findViewById(R.id.tv_timer);
         //点击边框外围不会取消dialog
         setCanceledOnTouchOutside(false);
