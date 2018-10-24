@@ -51,8 +51,6 @@ public class ExitDialog extends Dialog {
         window.getAttributes().gravity = Gravity.CENTER;
         //设置透明背景
         window.setBackgroundDrawableResource(android.R.color.transparent);
-        int letfPadding = (int) context.getResources().getDimension(R.dimen.x100);
-        window.getDecorView().setPadding(letfPadding,0,letfPadding,0);
         window.setContentView(view);
         tv_timer = findViewById(R.id.tv_timer);
         //点击边框外围不会取消dialog

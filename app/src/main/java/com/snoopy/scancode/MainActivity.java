@@ -6,21 +6,30 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.snoopy.scancode.helper.ScanGunHelper;
+import com.snoopy.scancode.listener.HttpCallbackListener;
 import com.snoopy.scancode.result.ResultActivity;
 import com.snoopy.scancode.util.Constant;
+import com.snoopy.scancode.util.HttpUtil;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnScanSuccessListener{
 
-    private TextView textView;
-
     //引导图
     private ImageView homeAppPage;
+    //从服务器获取json字串
+    private String jsonStr = null;
+    public final String pre_url = "http://ydjkf.hydee.cn/scanbuy/order/detail?";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +44,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
         homeAppPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent resultIntent = new Intent(MainActivity.this, ResultActivity.class);
-                startActivity(resultIntent);
+                getQRCodeInfo("2018040864", "0FDA26ECB6E3E5F56C109522F96BB777");
             }
         });
         getSupportActionBar().hide();
@@ -71,15 +79,48 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
                 Toast.makeText(MainActivity.this,"扫描失败",Toast.LENGTH_LONG).show();
                 return;
             }else{
-                Intent resultIntent = new Intent(MainActivity.this, ResultActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString(Constant.INTENT_EXTRA_KEY_QR_SCAN, barcode);
-                resultIntent.putExtras(bundle);
-                startActivity(resultIntent);
+                try {
+                    JSONObject jsonObject = new JSONObject(barcode);
+                    Toast.makeText(MainActivity.this,"barcode: " + barcode,Toast.LENGTH_LONG).show();
+                    String orderId = jsonObject.getString("orderId");
+                    String userKey = jsonObject.getString("userKey");
+                    Toast.makeText(MainActivity.this,orderId+ "     " + userKey,
+                            Toast.LENGTH_LONG).show();
+                    getQRCodeInfo(orderId, userKey);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    //根据二维码包含的信息，获取json字串并传递给ResultActivity
+    private void getQRCodeInfo(final String id, final String key){
+        String urlStr = pre_url + "orderId=" + id + "&userKey=" + key;
+        HttpUtil.getInstance().get(urlStr, new HttpCallbackListener() {
+            @Override
+            public void onFinish(final String response) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("tbw", "aa : " + response);
+                        jsonStr = response;
+                        Toast.makeText(MainActivity.this, jsonStr, Toast.LENGTH_LONG).show();
+                        Intent resultIntent = new Intent(MainActivity.this, ResultActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Constant.INTENT_EXTRA_KEY_QR_SCAN, jsonStr);
+                        resultIntent.putExtras(bundle);
+                        startActivity(resultIntent);
+                    }
+                });
             }
 
-        }
-
+            @Override
+            public void onError(Exception e) {
+                super.onError(e);
+                Log.i("mainactivity", "出错了");
+            }
+        });
     }
 
 }
