@@ -73,7 +73,7 @@
                 android:layout_gravity="center"
                 android:text="@string/exit"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/x40"
+                android:textSize="@dimen/x35"
                 android:background="@drawable/shape_button"/>
 
     </LinearLayout>

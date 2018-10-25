@@ -18,15 +18,15 @@ import android.widget.*;
 import com.snoopy.scancode.R;
 import com.snoopy.scancode.dialog.ExitDialog;
 import com.snoopy.scancode.dialog.ServiceDialog;
+import com.snoopy.scancode.listener.HttpCallbackListener;
 import com.snoopy.scancode.util.Constant;
+import com.snoopy.scancode.util.HttpUtil;
 import com.snoopy.scancode.util.ScreenUtil;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,6 +64,11 @@ public class ResultActivity extends AppCompatActivity {
     private String id;
     //付款时间
     private String paytime;
+
+    //订单id
+    String orderId;
+
+    public final String pre_url = "http://ydjkf.hydee.cn/scanbuy/order/orderexport?";
 
     private static ResultActivity mInstance;
 
@@ -106,6 +111,7 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showExitDialog();
+                returnExportOrderId();
             }
         });
         getSupportActionBar().hide();
@@ -116,7 +122,20 @@ public class ResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String strContentString = bundle.getString(Constant.INTENT_EXTRA_KEY_QR_SCAN);
+        orderId = bundle.getString("orderId");
+        Toast.makeText(ResultActivity.this, strContentString, Toast.LENGTH_LONG).show();
         jsonJX(strContentString);
+    }
+
+    //出场点击确定，
+    void  returnExportOrderId(){
+        String urlStr = pre_url + "orderId=" + orderId;
+        HttpUtil.getInstance().get(urlStr, new HttpCallbackListener() {
+            @Override
+            public void onFinish(String response) {
+                Log.i("tbw","response" + response);
+            }
+        });
     }
 
 

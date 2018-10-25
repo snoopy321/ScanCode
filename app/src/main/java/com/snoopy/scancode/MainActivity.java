@@ -16,11 +16,7 @@ import com.snoopy.scancode.listener.HttpCallbackListener;
 import com.snoopy.scancode.result.ResultActivity;
 import com.snoopy.scancode.util.Constant;
 import com.snoopy.scancode.util.HttpUtil;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.snoopy.scancode.util.ToastUtils;
 
 public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnScanSuccessListener{
 
@@ -44,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
         homeAppPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getQRCodeInfo("2018040864", "0FDA26ECB6E3E5F56C109522F96BB777");
+                //getQRCodeInfo("2018040864", "0FDA26ECB6E3E5F56C109522F96BB777");
             }
         });
         getSupportActionBar().hide();
@@ -56,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
+        //UpdateChecker.checkForDialog(MainActivity.this);
     }
 
     //其实这类事件都是普通的按键事件通过dispatchKeyEvent就可以拦截
@@ -73,21 +70,33 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
 
     @Override
     public void onSuccess(String barcode) {
-
+        Toast.makeText(MainActivity.this,"barcode: " + barcode,Toast.LENGTH_LONG).show();
         if (barcode != null) {
             if (TextUtils.isEmpty(barcode)) {
                 Toast.makeText(MainActivity.this,"扫描失败",Toast.LENGTH_LONG).show();
                 return;
             }else{
                 try {
+                    /*
                     JSONObject jsonObject = new JSONObject(barcode);
-                    Toast.makeText(MainActivity.this,"barcode: " + barcode,Toast.LENGTH_LONG).show();
                     String orderId = jsonObject.getString("orderId");
-                    String userKey = jsonObject.getString("userKey");
-                    Toast.makeText(MainActivity.this,orderId+ "     " + userKey,
+                    String userKey = jsonObject.getString("userKey");*/
+                    //String userKey = barcode.substring(barcode.indexOf("userKey") + 1, barcode.lastIndexOf("orderId"));
+                    //String orderId = barcode.substring(barcode.indexOf("orderId")+1);
+
+                    String strStart = "userKey";
+                    String strEnd = "orderId";
+                    /* 找出指定的2个字符在 该字符串里面的 位置 */
+                    int strStartIndex = barcode.indexOf(strStart);
+                    int strEndIndex = barcode.indexOf(strEnd);
+
+                    /* 开始截取 */
+                    String userKey = barcode.substring(strStartIndex, strEndIndex).substring(strStart.length());
+                    String orderId = barcode.substring(barcode.lastIndexOf(strEnd) + strEnd.length());
+                    Toast.makeText(MainActivity.this,"解析json : "+ orderId +"     " + userKey,
                             Toast.LENGTH_LONG).show();
                     getQRCodeInfo(orderId, userKey);
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -97,18 +106,19 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
     //根据二维码包含的信息，获取json字串并传递给ResultActivity
     private void getQRCodeInfo(final String id, final String key){
         String urlStr = pre_url + "orderId=" + id + "&userKey=" + key;
+        Log.i("tbw","urlStr: " + urlStr);
         HttpUtil.getInstance().get(urlStr, new HttpCallbackListener() {
             @Override
             public void onFinish(final String response) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Log.i("tbw", "aa : " + response);
+                        //Toast.makeText(MainActivity.this, response, Toast.LENGTH_LONG).show();
                         jsonStr = response;
-                        Toast.makeText(MainActivity.this, jsonStr, Toast.LENGTH_LONG).show();
                         Intent resultIntent = new Intent(MainActivity.this, ResultActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString(Constant.INTENT_EXTRA_KEY_QR_SCAN, jsonStr);
+                        bundle.putString("orderId",id);
                         resultIntent.putExtras(bundle);
                         startActivity(resultIntent);
                     }
@@ -118,7 +128,9 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
             @Override
             public void onError(Exception e) {
                 super.onError(e);
-                Log.i("mainactivity", "出错了");
+                //Toast.makeText(MainActivity.this,"网络出故障了，请稍后再试",Toast.LENGTH_LONG).show();
+                //Log.i("mainactivity", "出错了");
+                ToastUtils.show(MainActivity.this,"网络出故障了，请稍后再试");
             }
         });
     }

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.snoopy.scancode">
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 
     <application
             android:allowBackup="true"
@@ -22,6 +27,22 @@
                 android:name="com.snoopy.scancode.result.ResultActivity"
                 android:screenOrientation="portrait"
                 android:label="@string/order_detail"/>
+
+        <service
+                android:name=".update.DownloadService"
+                android:exported="false" />
+
+        <provider
+                android:name=".update.UpdateApkFileProvider"
+                android:authorities="${applicationId}.update.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/update_apk_paths" />
+
+        </provider>
     </application>
 
 </manifest>
