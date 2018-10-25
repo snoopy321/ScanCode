@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
         homeAppPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getQRCodeInfo("2018040864", "0FDA26ECB6E3E5F56C109522F96BB777");
+                getQRCodeInfo("2018040864", "0FDA26ECB6E3E5F56C109522F96BB777");
             }
         });
         getSupportActionBar().hide();
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
             //activity实现了扫码成功的回调这里的this就是这个listener
             //采用单例模式调用
             ScanGunHelper.getInstance().analysisKeyEvent(event, this);
+
             return true;
         }
         return super.dispatchKeyEvent(event);
