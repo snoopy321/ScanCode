@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.snoopy.scancode.helper.ScanGunHelper;
 import com.snoopy.scancode.listener.HttpCallbackListener;
 import com.snoopy.scancode.result.ResultActivity;
+import com.snoopy.scancode.update.UpdateChecker;
 import com.snoopy.scancode.util.Constant;
 import com.snoopy.scancode.util.HttpUtil;
 import com.snoopy.scancode.util.ToastUtils;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-        //UpdateChecker.checkForDialog(MainActivity.this);
+        UpdateChecker.checkForDialog(MainActivity.this);
     }
 
     //其实这类事件都是普通的按键事件通过dispatchKeyEvent就可以拦截
