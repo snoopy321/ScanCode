@@ -19,7 +19,7 @@ import com.snoopy.scancode.util.Constant;
 import com.snoopy.scancode.util.HttpUtil;
 import com.snoopy.scancode.util.ToastUtils;
 
-public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnScanSuccessListener{
+public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnScanSuccessListener {
 
     //引导图
     private ImageView homeAppPage;
@@ -35,13 +35,13 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
     }
 
     //初始化组件以及参数
-    void initViewsAndParas(){
+    void initViewsAndParas() {
         homeAppPage = findViewById(R.id.app_home_page);
         homeAppPage.bringToFront();
         homeAppPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getQRCodeInfo("2018040864", "0FDA26ECB6E3E5F56C109522F96BB777");
+                getQRCodeInfo("2018040864", "0FDA26ECB6E3E5F56C109522F96BB777");
             }
         });
         getSupportActionBar().hide();
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
         //设置沉浸式状态栏，，注意需要在android5.0版本及以上
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
-            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN  | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            int option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(option);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
@@ -72,12 +72,12 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
 
     @Override
     public void onSuccess(String barcode) {
-        Toast.makeText(MainActivity.this,"barcode: " + barcode,Toast.LENGTH_LONG).show();
+        Toast.makeText(MainActivity.this, "barcode: " + barcode, Toast.LENGTH_LONG).show();
         if (barcode != null) {
             if (TextUtils.isEmpty(barcode)) {
-                Toast.makeText(MainActivity.this,"扫描失败",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "扫描失败", Toast.LENGTH_LONG).show();
                 return;
-            }else{
+            } else {
                 try {
                     /*
                     JSONObject jsonObject = new JSONObject(barcode);
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
                     /* 开始截取 */
                     String userKey = barcode.substring(strStartIndex, strEndIndex).substring(strStart.length());
                     String orderId = barcode.substring(barcode.lastIndexOf(strEnd) + strEnd.length());
-                    Toast.makeText(MainActivity.this,"解析json : "+ orderId +"     " + userKey,
+                    Toast.makeText(MainActivity.this, "解析json : " + orderId + "     " + userKey,
                             Toast.LENGTH_LONG).show();
                     getQRCodeInfo(orderId, userKey);
                 } catch (Exception e) {
@@ -106,9 +106,9 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
     }
 
     //根据二维码包含的信息，获取json字串并传递给ResultActivity
-    private void getQRCodeInfo(final String id, final String key){
+    private void getQRCodeInfo(final String id, final String key) {
         String urlStr = pre_url + "orderId=" + id + "&userKey=" + key;
-        Log.i("tbw","urlStr: " + urlStr);
+        Log.i("tbw", "urlStr: " + urlStr);
         HttpUtil.getInstance().get(urlStr, new HttpCallbackListener() {
             @Override
             public void onFinish(final String response) {
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
                         Intent resultIntent = new Intent(MainActivity.this, ResultActivity.class);
                         Bundle bundle = new Bundle();
                         bundle.putString(Constant.INTENT_EXTRA_KEY_QR_SCAN, jsonStr);
-                        bundle.putString("orderId",id);
+                        bundle.putString("orderId", id);
                         resultIntent.putExtras(bundle);
                         startActivity(resultIntent);
                     }
@@ -130,9 +130,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
             @Override
             public void onError(Exception e) {
                 super.onError(e);
-                //Toast.makeText(MainActivity.this,"网络出故障了，请稍后再试",Toast.LENGTH_LONG).show();
-                //Log.i("mainactivity", "出错了");
-                ToastUtils.show(MainActivity.this,"网络出故障了，请稍后再试");
+                ToastUtils.show(MainActivity.this, getResources().getString(R.string.network_error));
             }
         });
     }

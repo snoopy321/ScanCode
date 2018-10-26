@@ -26,7 +26,6 @@ public class AppUtils {
             } catch (PackageManager.NameNotFoundException ignored) {
             }
         }
-
         return "";
     }
 }

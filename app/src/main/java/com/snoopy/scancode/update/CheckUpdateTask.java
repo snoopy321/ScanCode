@@ -46,7 +46,6 @@ class CheckUpdateTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }

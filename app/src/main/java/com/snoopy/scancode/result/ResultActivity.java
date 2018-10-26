@@ -89,10 +89,10 @@ public class ResultActivity extends AppCompatActivity {
         ScreenUtil.resetDensity(ResultActivity.this);
         setContentView(R.layout.activity_result);
         initViews();
+        //在展示详情页面的同时，展示出等待员工服务的dialog
         showServiceDialog();
         initGoodDatas();
 
-        //在展示详情页面的同时，展示出等待员工服务的dialog
     }
 
     //初始化控件
@@ -216,7 +216,6 @@ public class ResultActivity extends AppCompatActivity {
                     resultList.setAdapter(list_item);
                     break;
             }
-
         }
     };
 
