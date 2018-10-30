@@ -129,11 +129,11 @@ public class ResultActivity extends AppCompatActivity {
 
     //出场点击确定，
     void  returnExportOrderId(){
-        String urlStr = pre_url + "orderId=" + orderId;
+        final String urlStr = pre_url + "orderId=" + orderId;
         HttpUtil.getInstance().get(urlStr, new HttpCallbackListener() {
             @Override
             public void onFinish(String response) {
-                Log.i("tbw","response" + response);
+                Log.i("tbw","urlStr : " + urlStr +"   response: " + response);
             }
         });
     }
@@ -204,7 +204,7 @@ public class ResultActivity extends AppCompatActivity {
         return null;
     }
 
-    //Handler运行在主线程中(UI线程中)，  它与子线程可以通过Message对象来传递数据
+    //Handler运行在主线程中(UI线程中)，它与子线程可以通过Message对象来传递数据
     @SuppressLint("HandlerLeak")
     public Handler handler = new Handler() {
 

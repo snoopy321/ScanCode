@@ -30,4 +30,5 @@
 
     <string name="android_auto_update_dialog_checking">正在检查版本</string>
     <string name="network_error">网络出故障了，请稍后再试</string>
+    <string name="scan_error">扫描失败</string>
 </resources>

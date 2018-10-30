@@ -1,6 +1,7 @@
 package com.snoopy.scancode;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
         homeAppPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getQRCodeInfo("2018040864", "0FDA26ECB6E3E5F56C109522F96BB777");
+                //getQRCodeInfo("2018040864", "0FDA26ECB6E3E5F56C109522F96BB777");
             }
         });
         getSupportActionBar().hide();
@@ -64,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
             //activity实现了扫码成功的回调这里的this就是这个listener
             //采用单例模式调用
             ScanGunHelper.getInstance().analysisKeyEvent(event, this);
-
             return true;
         }
         return super.dispatchKeyEvent(event);
@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
 
     @Override
     public void onSuccess(String barcode) {
-        Toast.makeText(MainActivity.this, "barcode: " + barcode, Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this, "barcode: " + barcode, Toast.LENGTH_LONG).show();
         if (barcode != null) {
             if (TextUtils.isEmpty(barcode)) {
-                Toast.makeText(MainActivity.this, "扫描失败", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, getResources().getString(R.string.scan_error), Toast.LENGTH_LONG).show();
                 return;
             } else {
                 try {
@@ -83,9 +83,6 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
                     JSONObject jsonObject = new JSONObject(barcode);
                     String orderId = jsonObject.getString("orderId");
                     String userKey = jsonObject.getString("userKey");*/
-                    //String userKey = barcode.substring(barcode.indexOf("userKey") + 1, barcode.lastIndexOf("orderId"));
-                    //String orderId = barcode.substring(barcode.indexOf("orderId")+1);
-
                     String strStart = "userKey";
                     String strEnd = "orderId";
                     /* 找出指定的2个字符在 该字符串里面的 位置 */
@@ -95,8 +92,6 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
                     /* 开始截取 */
                     String userKey = barcode.substring(strStartIndex, strEndIndex).substring(strStart.length());
                     String orderId = barcode.substring(barcode.lastIndexOf(strEnd) + strEnd.length());
-                    Toast.makeText(MainActivity.this, "解析json : " + orderId + "     " + userKey,
-                            Toast.LENGTH_LONG).show();
                     getQRCodeInfo(orderId, userKey);
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -66,8 +66,7 @@ public class ScanGunHelper {
      * 扫码枪事件解析
      */
     public void analysisKeyEvent(KeyEvent event, ScanGunHelper.OnScanSuccessListener listener) {
-
-        Log.i("tbw","是否为扫码枪：" + String.valueOf(isScanGunEvent(event)));
+        Log.i("tbw", "是否为扫码枪：" + String.valueOf(isScanGunEvent(event)));
         if (!isScanGunEvent(event)) {
             return;
         }
