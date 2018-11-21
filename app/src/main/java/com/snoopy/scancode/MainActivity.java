@@ -1,7 +1,8 @@
 package com.snoopy.scancode;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
         homeAppPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //getQRCodeInfo("2018040864", "0FDA26ECB6E3E5F56C109522F96BB777");
+                getQRCodeInfo("2018040864", "0FDA26ECB6E3E5F56C109522F96BB777");
             }
         });
         getSupportActionBar().hide();
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements ScanGunHelper.OnS
     //根据二维码包含的信息，获取json字串并传递给ResultActivity
     private void getQRCodeInfo(final String id, final String key) {
         String urlStr = pre_url + "orderId=" + id + "&userKey=" + key;
+        Toast.makeText(MainActivity.this,"orderId: " + id + "  userKey: " + key,Toast.LENGTH_LONG).show();
         Log.i("tbw", "urlStr: " + urlStr);
         HttpUtil.getInstance().get(urlStr, new HttpCallbackListener() {
             @Override
